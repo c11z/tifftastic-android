@@ -1,9 +1,12 @@
 package com.corydominguez.tifftastic;
 
+import java.io.Serializable;
+
 /**
  * Created by coryd on 13/01/2014.
  */
-public class Image {
+public class Image implements Serializable {
+
     private String title;
     private String titleNoFormatting;
     private String url;
@@ -49,6 +52,5 @@ public class Image {
                 ", tbUrl='" + tbUrl + '\'' +
                 '}';
     }
-
 
 }
