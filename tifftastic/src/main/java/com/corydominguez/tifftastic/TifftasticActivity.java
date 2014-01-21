@@ -37,7 +37,8 @@ public class TifftasticActivity extends ActionBarActivity {
     private ArrayList<Image> imageResults = new ArrayList<Image>();
     private ImageArrayAdapter imageAdapter;
     private ImageFilters imageFilters;
-
+    private static final ObjectMapper mapper = new ObjectMapper().configure(
+            DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class TifftasticActivity extends ActionBarActivity {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 if (page < 8 ) {
-                    fetchImages(page, totalItemsCount);
+                    fetchImages(page);
                 } else {
                     Log.d("DEBUG", "That's all folks");
                 }
@@ -83,14 +84,13 @@ public class TifftasticActivity extends ActionBarActivity {
 
     public void onSearch(View v) {
         imageResults.clear();
-        Toast.makeText(this, "Searching for " + etQuery.getText().toString(), Toast.LENGTH_SHORT).show();
-        fetchImages(0, 0);
-
+        assert etQuery.getText() != null;
+        Toast.makeText(this, "Searching for " + etQuery.getText().toString(),
+                       Toast.LENGTH_SHORT).show();
+        fetchImages(0);
     }
 
-    private void fetchImages(int page, int totalItemsCount) {
-        final ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    private void fetchImages(int page) {
         assert etQuery.getText() != null;
         String query = etQuery.getText().toString();
         AsyncHttpClient http = new AsyncHttpClient();

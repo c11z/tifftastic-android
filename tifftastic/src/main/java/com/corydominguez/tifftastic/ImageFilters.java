@@ -1,6 +1,5 @@
 package com.corydominguez.tifftastic;
 
-import android.content.Intent;
 import android.net.Uri;
 
 import java.io.Serializable;
@@ -113,7 +112,7 @@ public class ImageFilters implements Serializable {
         if (!size.equals("")) filter += "&imgsz=" + getSize();
         if (!color.equals("")) filter += "&imgcolor=" + getColor();
         if (!type.equals("")) filter += "&imgtype=" + getType();
-        if (!site.equals("")) filter += "&as_sitesearch" + Uri.encode(getSite());
+        if (!site.equals("")) filter += "&as_sitesearch=" + Uri.encode(getSite());
         return filter;
     }
 }
